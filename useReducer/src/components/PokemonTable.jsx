@@ -16,6 +16,7 @@ const PokemonTable = () =>{
                 .slice(0, 20)
                 .map((pokemon) => (
                   <PokemonRow
+                    key={pokemon.id}
                     pokemon={pokemon}
                     onClick={(pokemon) => dispatch({
                       type:'SET_SELECTED_POKEMON',
