@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-
 const useStore = create((set) => ({
     pokemon: [],
     filter:"",
@@ -18,6 +17,13 @@ const useStore = create((set) => ({
         ...state,
         selectedPokemon,
     })),
-}))
+
+}));
+// Now the store manages it's own fetch
+fetch("/starting-react/pokemon.json")
+      .then((resp) => resp.json())
+      .then((pokemon)=> useStore.setState((state)=>({...state,pokemon
+      })))
+
 
 export default useStore;

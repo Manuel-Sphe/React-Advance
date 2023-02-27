@@ -4,8 +4,6 @@ import { CssBaseline } from "@material-ui/core";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
-import useStore from "./store";
-
 import "./App.css";
 
 const Title = styled.h1`
@@ -22,23 +20,7 @@ const TwoColumnLayout = styled.div`
   grid-column-gap: 1rem;
 `;
 
-
-
-
 function App() {
-  const pokemon = useStore((state) => state.pokemon);
-  const setPokemon = useStore((state) => state.setPokemon);
-
-  React.useEffect(() => {
-    fetch("/starting-react/pokemon.json")
-      .then((resp) => resp.json())
-      .then(setPokemon);
-  }, []);
-
-  if (!pokemon) {
-    return <div>Loading data</div>;
-  }
-
   return (
     <PageContainer>
       <CssBaseline />
