@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { CssBaseline } from "@material-ui/core";
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider, useSelector, useDispatch } from "react-redux";
-
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
+import useStore from "./store";
 
 import "./App.css";
 
@@ -24,49 +22,18 @@ const TwoColumnLayout = styled.div`
   grid-column-gap: 1rem;
 `;
 
-const stateReducer = (
-  state = { pokemon: [], filter: "", selectedPokemon: null },
-  { type, payload }
-) => {
-  switch (type) {
-    case "SET_FILTER":
-      return {
-        ...state,
-        filter: payload,
-      };
-    case "SET_POKEMON":
-      return {
-        ...state,
-        pokemon: payload,
-      };
-    case "SET_SELECTED_POKEMON":
-      return {
-        ...state,
-        selectedPokemon: payload,
-      };
-    default:
-      return state;
-  }
-};
 
-const store = configureStore({
-  reducer: stateReducer,
-});
+
 
 function App() {
-  const pokemon = useSelector((state ) => state.pokemon);
-  const dispatch = useDispatch();
+  const pokemon = useStore((state) => state.pokemon);
+  const setPokemon = useStore((state) => state.setPokemon);
 
   React.useEffect(() => {
     fetch("/starting-react/pokemon.json")
       .then((resp) => resp.json())
-      .then((payload) =>
-        dispatch({
-          type: "SET_POKEMON",
-          payload,
-        })
-      );
-  }, [dispatch]);
+      .then(setPokemon);
+  }, []);
 
   if (!pokemon) {
     return <div>Loading data</div>;
@@ -87,8 +54,5 @@ function App() {
   );
 }
 
-export default () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+export default App;
+
