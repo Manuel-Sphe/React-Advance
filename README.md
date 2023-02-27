@@ -19,13 +19,15 @@ In summary, `useContext` and `useReducer` are built-in `React` hooks that can be
 
 ```bash
 git clone https://github.com/Manuel-Sphe/React-Advance.git
-
+```
 ## Install Dependencies
 - Navigate to one of the Folders(Redux, useContex, etc..) and install the required dependencies by running the following command:
 
-```
 ```bash
 cd Redux
+```
+
+```bash
 yarn install
 ```
 ## Run the Application
